@@ -31,6 +31,8 @@ class Game(simpleGE.Scene):
         self.lblLives2.text = f"lives: {self.Lives2}"
 
 
+
+
 class Player(simpleGE.BasicSprite):
     def __init__(self, scene):
         super().__init__(scene)
@@ -72,31 +74,60 @@ class Projectile(simpleGE.BasicSprite):
     def __init__(self, scene):
         super().__init__(scene)
         self.setImage("fireball.gif")
-        self.setSize(60, 60)
+        self.setSize(100, 100)
         self.moveSpeed = 10
-        self.x = 320
-        self.y = 240
+        self.x = random.randint(260, 380)
+        self.y = random.randint(180, 300)
         self.dx = 5
         self.dy = 5
 
+
+    def update(self):
+        super().update()
+
+        self.x += self.dx
+        self.y += self.dy
+
         if self.x < 0:
-            self.dx = abs(self.dx)
-        if self.x + self.screen.get_width() > self.screen.get_width():
-            self.dx = -abs(self.dx)
+            self.dx = -self.dx
+            self.dx += 1
+            self.dy += 1
+        if self.x + self.image.get_width() > self.scene.screen.get_width():
+            self.dx = -self.dx
+            self.dx += 1
+            self.dy += 1
 
         if self.y < 0:
-            self.dy = abs(self.dy)
-        if self.y + self.screen.get_height() > self.screen.get_height():
-            self.dy = -abs(self.dy)
+            self.dy = -self.dy
+            self.dx += 1
+            self.dy += 1
+        if self.y + self.image.get_height() > self.scene.screen.get_height():
+            self.dy = -self.dy
+            self.dx += 1
+            self.dy += 1
 
     def checkEvents(self):
         if self.collidesWith(self.scene.player1):
             self.scene.Lives -= 1
-        elif self.collidesWith(self.scene.player2):
+            self.dx += 3
+            self.dy += 3
+            self.reset()
+        if self.collidesWith(self.scene.player2):
             self.scene.Lives2 -= 1
+            self.dx += 3
+            self.dy += 3
+            self.reset()
+        if self.scene.Lives <= 0:
+            self.scene.stop()
+            pygame.quit()
+        if self.scene.Lives2 <= 0:
+            self.scene.stop()
+            pygame.quit()
+    def reset(self):
+        self.x = 320
+        self.y = 240
 
 
-# Main game loop
 def main():
     game = Game()
     game.start()
