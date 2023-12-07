@@ -75,7 +75,7 @@ class Projectile(simpleGE.BasicSprite):
     def __init__(self, scene):
         super().__init__(scene)
         self.setImage("fireball.gif")
-        self.setSize(100, 100)
+        self.setSize(75, 75)
         self.moveSpeed = 5
         self.x = 320
         self.y = 240
@@ -113,24 +113,6 @@ class Projectile(simpleGE.BasicSprite):
             self.dy += 1
             self.dy = -self.dy
 
-
-        if self.x < 0:
-            self.dx = -self.dx
-            self.dx += 1
-            self.dy += 1
-        if self.x + self.image.get_width() > self.scene.screen.get_width():
-            self.dx = -self.dx
-            self.dx += 1
-            self.dy += 1
-
-        if self.y < 0:
-            self.dy = -self.dy
-            self.dx += 1
-            self.dy += 1
-        if self.y + self.image.get_height() > self.scene.screen.get_height():
-            self.dy = -self.dy
-            self.dx += 1
-            self.dy += 1
 
     def checkEvents(self):
         if self.collidesWith(self.scene.player1):
