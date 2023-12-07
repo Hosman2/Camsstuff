@@ -79,9 +79,9 @@ class Projectile(simpleGE.BasicSprite):
         self.moveSpeed = 5
         self.x = 320
         self.y = 240
-        self.moveSpeed = 10
-        self.x = random.randint(260, 380)
-        self.y = random.randint(180, 300)
+        self.moveSpeed = 5
+        self.x = 320
+        self.y = 240
         self.dx = 5
         self.dy = 5
 
@@ -117,13 +117,11 @@ class Projectile(simpleGE.BasicSprite):
     def checkEvents(self):
         if self.collidesWith(self.scene.player1):
             self.scene.Lives -= 1
-            self.dx += 3
-            self.dy += 3
+            self.moveSpeed = 5
             self.reset()
         if self.collidesWith(self.scene.player2):
             self.scene.Lives2 -= 1
-            self.dx += 3
-            self.dy += 3
+            self.moveSpeed = 5
             self.reset()
         if self.scene.Lives <= 0:
             self.scene.stop()
