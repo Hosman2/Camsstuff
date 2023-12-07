@@ -14,14 +14,14 @@ class Game(simpleGE.Scene):
         self.player2 = Player2(self)
 
         self.lblLives = simpleGE.Label()
-        self.lblLives.text = "Lives: 3"
+        self.lblLives.text = "Lives: 5"
         self.lblLives.center = (50, 15)
-        self.Lives = 3
+        self.Lives = 5
 
         self.lblLives2 = simpleGE.Label()
-        self.lblLives2.text = "Lives: 3"
+        self.lblLives2.text = "Lives: 5"
         self.lblLives2.center = (600, 15)
-        self.Lives2 = 3
+        self.Lives2 = 5
 
         self.sprites = [self.projectile, self.lblLives, self.lblLives2, self.player1, self.player2]
 
