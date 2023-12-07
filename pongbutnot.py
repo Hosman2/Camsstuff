@@ -32,12 +32,11 @@ class Game(simpleGE.Scene):
 
 
 
-
 class Player(simpleGE.BasicSprite):
     def __init__(self, scene):
         super().__init__(scene)
         self.setImage("cat.gif")
-        self.setSize(75, 75)
+        self.setSize(125, 125)
         self.moveSpeed = 5
         self.lives = 3
         self.x = 35
@@ -56,7 +55,7 @@ class Player2(simpleGE.BasicSprite):
     def __init__(self, scene):
         super().__init__(scene)
         self.setImage("cat2.gif")
-        self.setSize(75, 75)
+        self.setSize(125, 125)
         self.moveSpeed = 5
         self.lives = 3
         self.x = 605
@@ -75,9 +74,9 @@ class Projectile(simpleGE.BasicSprite):
         super().__init__(scene)
         self.setImage("fireball.gif")
         self.setSize(100, 100)
-        self.moveSpeed = 10
-        self.x = random.randint(260, 380)
-        self.y = random.randint(180, 300)
+        self.moveSpeed = 5
+        self.x = 320
+        self.y = 240
         self.dx = 5
         self.dy = 5
 
@@ -88,23 +87,27 @@ class Projectile(simpleGE.BasicSprite):
         self.x += self.dx
         self.y += self.dy
 
-        if self.x < 0:
-            self.dx = -self.dx
+        if self.x <= 1:
             self.dx += 1
             self.dy += 1
-        if self.x + self.image.get_width() > self.scene.screen.get_width():
             self.dx = -self.dx
-            self.dx += 1
-            self.dy += 1
 
-        if self.y < 0:
-            self.dy = -self.dy
+        if self.x >= 640:
             self.dx += 1
             self.dy += 1
-        if self.y + self.image.get_height() > self.scene.screen.get_height():
-            self.dy = -self.dy
+            self.dx = -self.dx
+
+
+        if self.y <= 1:
             self.dx += 1
             self.dy += 1
+            self.dy = -self.dy
+
+        if self.y >= 460:
+            self.dx += 1
+            self.dy += 1
+            self.dy = -self.dy
+
 
     def checkEvents(self):
         if self.collidesWith(self.scene.player1):
